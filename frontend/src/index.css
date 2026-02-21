@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* ── Terminal meets Journal ─────────────────────────────────────────── */
+
+@theme {
+  --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", ui-monospace, monospace;
+  --color-ink: #1a1a1a;
+  --color-paper: #f5f2eb;
+  --color-paper-alt: #ece8df;
+  --color-line: #c8c3b8;
+  --color-muted: #7a7568;
+  --color-green: #2d6a4f;
+  --color-green-bright: #40916c;
+  --color-red: #9b2226;
+  --color-amber: #8b6914;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}

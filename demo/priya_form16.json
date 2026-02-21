@@ -1,0 +1,41 @@
+{
+    "financial_year": "2024-25",
+    "employee_name": "Priya Sharma",
+    "pan": "ABCPS1234D",
+    "employer_name": "TechVista Solutions Pvt Ltd",
+
+    "gross_salary": 1500000,
+    "basic_salary": 600000,
+    "hra_received": 300000,
+    "special_allowance": 600000,
+    "lta": 0,
+    "bonus": 0,
+    "other_salary": 0,
+
+    "hra_exemption": 0,
+    "lta_exemption": 0,
+    "other_exemptions": 0,
+
+    "standard_deduction": 75000,
+    "professional_tax": 2400,
+
+    "deduction_80c": 72000,
+    "deduction_80ccc": 0,
+    "deduction_80ccd_1": 0,
+    "deduction_80ccd_1b": 0,
+    "deduction_80ccd_2": 0,
+    "deduction_80d": 0,
+    "deduction_80e": 0,
+    "deduction_80g": 0,
+    "deduction_80tta": 0,
+    "deduction_24b": 0,
+    "other_deductions": 0,
+
+    "taxable_income": 1422600,
+    "total_tax_paid": 129501,
+
+    "regime": "new",
+    "city": "mumbai",
+    "monthly_rent": 25000,
+    "epf_employee_contribution": 72000
+}
