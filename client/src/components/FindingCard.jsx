@@ -5,6 +5,7 @@ import {
   downloadICS,
   generateGoogleCalendarURL,
 } from '../utils/calendarGenerator.js';
+import RedemptionExpand from './RedemptionExpand.jsx';
 
 /**
  * Deduction check IDs -- their savings are components of the regime switch,
@@ -176,6 +177,17 @@ export default function FindingCard({ check, recommendedRegime }) {
             [ {expand === 'details' ? 'hide' : 'details'} ]
           </button>
         )}
+        {check.check_id === 'capital_gains' && (
+          <button
+            type="button"
+            onClick={() => toggle('planner')}
+            aria-expanded={expand === 'planner'}
+            className="text-[10px] text-(--color-muted) hover:text-(--color-ink)
+              bg-transparent border-0 font-[inherit] cursor-pointer p-0 underline"
+          >
+            [ {expand === 'planner' ? 'hide' : 'plan a sale'} ]
+          </button>
+        )}
       </div>
 
       {/* Expand: calendar reminder */}
@@ -209,6 +221,15 @@ export default function FindingCard({ check, recommendedRegime }) {
         <div className="mt-2 text-xs text-(--color-muted) leading-relaxed border-l-2 border-(--color-line) pl-3 animate-slide-in">
           {check.explanation}
         </div>
+      )}
+
+      {/* Expand: redemption planner (capital_gains only) */}
+      {expand === 'planner' && (
+        <RedemptionExpand
+          exemptionRemaining={
+            check.details?.exemption_remaining ?? 125_000
+          }
+        />
       )}
     </div>
   );
