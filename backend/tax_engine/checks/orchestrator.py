@@ -31,6 +31,7 @@ def run_all_checks(
     salary: SalaryProfile,
     holdings: Optional[Holdings] = None,
     parents_senior: bool = False,
+    self_senior: bool = False,
     cg_as_of: Optional[date] = None,
 ) -> TaxHawkResult:
     """Run all 6 optimization checks and produce the final report.
@@ -39,6 +40,7 @@ def run_all_checks(
         salary: Structured salary data from Form 16.
         holdings: Investment holdings (optional).
         parents_senior: True if either parent is 60+.
+        self_senior: True if taxpayer is 60+.
         cg_as_of: Reference date for capital gains holding period.
 
     Returns:
@@ -48,9 +50,9 @@ def run_all_checks(
         holdings = Holdings()
 
     # ── Step 1: Run all checks ──────────────────────────────────────────
-    regime_result = check_regime(salary, parents_senior=parents_senior)
+    regime_result = check_regime(salary, parents_senior=parents_senior, self_senior=self_senior)
     result_80c = check_80c(salary)
-    result_80d = check_80d(salary, parents_senior=parents_senior)
+    result_80d = check_80d(salary, parents_senior=parents_senior, self_senior=self_senior)
     result_hra = check_hra(salary)
     result_cg = check_capital_gains(holdings, as_of=cg_as_of)
     result_nps = check_nps(salary)

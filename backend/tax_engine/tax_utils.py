@@ -164,7 +164,12 @@ def _get_surcharge(taxable_income: float, base_tax: float, surcharge_slabs: list
     return round(base_tax * rate)
 
 
-def get_marginal_rate(taxable_income: float, regime: str = "old", fy: str = "2024-25") -> float:
+def get_marginal_rate(
+    taxable_income: float,
+    regime: str = "old",
+    fy: str = "2024-25",
+    age_category: str = "below_60",
+) -> float:
     """Return the marginal slab rate at a given taxable income level.
 
     Used to estimate tax savings from additional deductions:
@@ -172,6 +177,10 @@ def get_marginal_rate(taxable_income: float, regime: str = "old", fy: str = "202
     """
     if regime == "new":
         slabs = NEW_REGIME_SLABS_FY2025_26 if fy == "2025-26" else NEW_REGIME_SLABS_FY2024_25
+    elif age_category == "super_senior":
+        slabs = OLD_REGIME_SLABS_SUPER_SENIOR
+    elif age_category == "senior":
+        slabs = OLD_REGIME_SLABS_SENIOR
     else:
         slabs = OLD_REGIME_SLABS_BELOW_60
 

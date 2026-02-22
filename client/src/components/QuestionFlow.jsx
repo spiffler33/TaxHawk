@@ -5,17 +5,18 @@ import RentQuestion from './questions/RentQuestion.jsx';
 import CityQuestion from './questions/CityQuestion.jsx';
 import HomeLoanQuestion from './questions/HomeLoanQuestion.jsx';
 import HealthInsuranceQuestion from './questions/HealthInsuranceQuestion.jsx';
+import SelfAgeQuestion from './questions/SelfAgeQuestion.jsx';
 import ParentsAgeQuestion from './questions/ParentsAgeQuestion.jsx';
 import Existing80CQuestion from './questions/Existing80CQuestion.jsx';
 import NPSQuestion from './questions/NPSQuestion.jsx';
 
 /**
- * The 8 steps in the question wizard.
+ * The 9 steps in the question wizard.
  * Each produces key-value pairs that merge into the accumulated answers object.
  * The final answers object feeds into estimateFromCTC().
  *
- * Flow: Q1→Q2→Q3→Q4→Q5→Q6→Q7→Q8→RESULTS
- * Investment questions (Q9-Q10) appear after results, not in this flow.
+ * Flow: Q1→Q2→Q3→Q4→Q5→Q6→Q7→Q8→Q9→RESULTS
+ * Investment questions (Q10-Q11) appear after results, not in this flow.
  */
 const STEPS = [
   { id: 'ctc', Component: CTCQuestion },
@@ -23,6 +24,7 @@ const STEPS = [
   { id: 'city', Component: CityQuestion },
   { id: 'homeLoan', Component: HomeLoanQuestion },
   { id: 'healthInsurance', Component: HealthInsuranceQuestion },
+  { id: 'selfAge', Component: SelfAgeQuestion },
   { id: 'parentsAge', Component: ParentsAgeQuestion },
   { id: 'existing80c', Component: Existing80CQuestion },
   { id: 'nps', Component: NPSQuestion },

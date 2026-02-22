@@ -225,12 +225,17 @@ function getSurcharge(taxableIncome, baseTax, surchargeSlabs, taxSlabs) {
  * @param {number} taxableIncome
  * @param {string} regime - 'old' | 'new'
  * @param {string} fy - Financial year
+ * @param {string} ageCategory - 'below_60' | 'senior' | 'super_senior'
  * @returns {number}
  */
-export function getMarginalRate(taxableIncome, regime = 'old', fy = '2024-25') {
+export function getMarginalRate(taxableIncome, regime = 'old', fy = '2024-25', ageCategory = 'below_60') {
   let slabs;
   if (regime === 'new') {
     slabs = fy === '2025-26' ? NEW_REGIME_SLABS_FY2025_26 : NEW_REGIME_SLABS_FY2024_25;
+  } else if (ageCategory === 'super_senior') {
+    slabs = OLD_REGIME_SLABS_SUPER_SENIOR;
+  } else if (ageCategory === 'senior') {
+    slabs = OLD_REGIME_SLABS_SENIOR;
   } else {
     slabs = OLD_REGIME_SLABS_BELOW_60;
   }

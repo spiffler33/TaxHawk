@@ -1,5 +1,15 @@
 # TaxHawk - Indian Tax Optimization Agent
 
+## Working Directories
+
+This repo has two build targets:
+
+- **Backend** (Python): `backend/`, `tests/`, `demo/` — Reference implementation + hackathon API
+- **Client** (React): `client/` — Production client-side app for distribution
+
+If working on the client-side app, read `client/CLAUDE.md` for architecture and `client/BUILD_PLAN.md` for tasks. The client CLAUDE.md takes precedence when working in `client/`.
+
+
 ## Project Overview
 TaxHawk is an AI-powered tax optimization agent for Indian salaried professionals (₹10-30 LPA). Unlike ClearTax/TaxBuddy which help you FILE taxes, TaxHawk finds money you're LEAVING ON THE TABLE before you file.
 

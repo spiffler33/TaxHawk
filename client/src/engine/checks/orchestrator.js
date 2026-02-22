@@ -30,11 +30,13 @@ import { checkHomeLoan } from './homeLoanCheck.js';
  * @param {object} [holdings] - Holdings (optional)
  * @param {object} [opts]
  * @param {boolean} [opts.parentsSenior=false]
+ * @param {boolean} [opts.selfSenior=false]
  * @param {Date} [opts.cgAsOf] - Reference date for capital gains
  * @returns {object} TaxHawkResult
  */
 export function runAllChecks(salary, holdings, opts = {}) {
   const parentsSenior = opts.parentsSenior || false;
+  const selfSenior = opts.selfSenior || false;
   const cgAsOf = opts.cgAsOf || null;
 
   if (!holdings) {
@@ -42,9 +44,9 @@ export function runAllChecks(salary, holdings, opts = {}) {
   }
 
   // ── Step 1: Run all checks ──────────────────────────────────────────
-  const regimeResult = checkRegime(salary, { parentsSenior });
+  const regimeResult = checkRegime(salary, { parentsSenior, selfSenior });
   const result80c = check80c(salary);
-  const result80d = check80d(salary, { parentsSenior });
+  const result80d = check80d(salary, { parentsSenior, selfSenior });
   const resultHra = checkHra(salary);
   const resultCg = checkCapitalGains(holdings, { asOf: cgAsOf });
   const resultNps = checkNps(salary);

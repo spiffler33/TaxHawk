@@ -18,6 +18,7 @@ from ..tax_utils import (
     LIMIT_80C,
     LIMIT_80CCD_1B,
     LIMIT_80D_SELF_BELOW_60,
+    LIMIT_80D_SELF_SENIOR,
     LIMIT_80D_PARENTS_BELOW_60,
     LIMIT_80D_PARENTS_SENIOR,
     STANDARD_DEDUCTION,
@@ -27,6 +28,7 @@ from ..tax_utils import (
 def check_regime(
     salary: SalaryProfile,
     parents_senior: bool = False,
+    self_senior: bool = False,
     has_self_health_insurance: bool = False,
 ) -> Finding:
     """Compare old vs new regime with fully optimized deductions.
@@ -34,12 +36,14 @@ def check_regime(
     Args:
         salary: Structured salary data from Form 16.
         parents_senior: True if either parent is 60+.
+        self_senior: True if taxpayer is 60+.
         has_self_health_insurance: True if user has own health insurance policy.
 
     Returns:
         Finding with regime recommendation and savings.
     """
     fy = salary.financial_year
+    age_category = "senior" if self_senior else "below_60"
 
     # ── New Regime Tax ──────────────────────────────────────────────────
     new_taxable = compute_new_regime_taxable_income(salary)
@@ -63,11 +67,13 @@ def check_regime(
     # If there's still a gap, recommend filling it
     optimal_80c = LIMIT_80C  # Assume user will fill the gap
 
-    # Calculate optimal 80D (parents insurance)
+    # Calculate optimal 80D (self + parents insurance)
+    # For non-seniors, assume employer group cover handles self — only optimize parents.
+    # For seniors (60+), no employer group cover — optimize both self and parents.
+    self_limit = LIMIT_80D_SELF_SENIOR if self_senior else LIMIT_80D_SELF_BELOW_60
     parents_limit = LIMIT_80D_PARENTS_SENIOR if parents_senior else LIMIT_80D_PARENTS_BELOW_60
-    optimal_80d = salary.deduction_80d
-    # Add parents insurance opportunity
-    optimal_80d = max(optimal_80d, parents_limit)
+    optimal_80d_target = (self_limit + parents_limit) if self_senior else parents_limit
+    optimal_80d = max(salary.deduction_80d, optimal_80d_target)
 
     # Calculate optimal NPS 80CCD(1B)
     optimal_nps_1b = LIMIT_80CCD_1B
@@ -81,7 +87,7 @@ def check_regime(
         total_80ccd_1b=optimal_nps_1b,
     )
     old_taxable = old_breakdown["taxable_income"]
-    old_tax_result = calculate_old_regime_tax(old_taxable, fy)
+    old_tax_result = calculate_old_regime_tax(old_taxable, fy, age_category=age_category)
     old_tax = old_tax_result["total_tax"]
 
     # ── Compare ─────────────────────────────────────────────────────────

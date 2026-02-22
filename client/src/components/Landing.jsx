@@ -24,7 +24,7 @@ export default function Landing({ onStart, onDemo }) {
         </p>
 
         <div className="mt-3 text-[11px] text-(--color-muted)">
-          30 seconds {'\u00B7'} 8 questions {'\u00B7'} no sign-up
+          30 seconds {'\u00B7'} 9 questions {'\u00B7'} no sign-up
         </div>
       </div>
 

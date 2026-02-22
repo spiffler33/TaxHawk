@@ -43,6 +43,7 @@ function App() {
     const prof = estimateFromCTC(ans);
     const engineResult = runAllChecks(prof, null, {
       parentsSenior: ans.parentsOver60 || false,
+      selfSenior: ans.selfOver60 || false,
     });
 
     setAnswers(ans);
@@ -124,6 +125,7 @@ function App() {
 
       const engineResult = runAllChecks(newProfile, holdings, {
         parentsSenior: answers?.parentsOver60 || false,
+        selfSenior: answers?.selfOver60 || false,
       });
 
       setProfile(newProfile);
@@ -142,6 +144,7 @@ function App() {
       const hold = estimateLTCG(investmentAnswers);
       const engineResult = runAllChecks(profile, hold, {
         parentsSenior: answers?.parentsOver60 || false,
+        selfSenior: answers?.selfOver60 || false,
       });
 
       setHoldings(hold);

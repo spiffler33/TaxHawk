@@ -17,6 +17,7 @@ import {
   LIMIT_80C,
   LIMIT_80CCD_1B,
   LIMIT_80D_SELF_BELOW_60,
+  LIMIT_80D_SELF_SENIOR,
   LIMIT_80D_PARENTS_BELOW_60,
   LIMIT_80D_PARENTS_SENIOR,
   LIMIT_24B_SELF_OCCUPIED,
@@ -27,10 +28,13 @@ import {
  * @param {object} salary - SalaryProfile
  * @param {object} [opts]
  * @param {boolean} [opts.parentsSenior=false]
+ * @param {boolean} [opts.selfSenior=false]
  * @returns {object} Finding
  */
 export function checkRegime(salary, opts = {}) {
   const parentsSenior = opts.parentsSenior || false;
+  const selfSenior = opts.selfSenior || false;
+  const ageCategory = selfSenior ? 'senior' : 'below_60';
   const fy = salary.financial_year;
 
   // ── New Regime Tax ──────────────────────────────────────────────────
@@ -53,9 +57,13 @@ export function checkRegime(salary, opts = {}) {
   // Calculate optimal 80C (assume user will fill the gap)
   const optimal80c = LIMIT_80C;
 
-  // Calculate optimal 80D (parents insurance)
+  // Calculate optimal 80D (self + parents insurance)
+  // For non-seniors, assume employer group cover handles self — only optimize parents.
+  // For seniors (60+), no employer group cover — optimize both self and parents.
+  const selfLimit = selfSenior ? LIMIT_80D_SELF_SENIOR : LIMIT_80D_SELF_BELOW_60;
   const parentsLimit = parentsSenior ? LIMIT_80D_PARENTS_SENIOR : LIMIT_80D_PARENTS_BELOW_60;
-  const optimal80d = Math.max(salary.deduction_80d, parentsLimit);
+  const optimal80dTarget = selfSenior ? selfLimit + parentsLimit : parentsLimit;
+  const optimal80d = Math.max(salary.deduction_80d, optimal80dTarget);
 
   // Calculate optimal NPS 80CCD(1B)
   const optimalNps1b = LIMIT_80CCD_1B;
@@ -72,7 +80,7 @@ export function checkRegime(salary, opts = {}) {
     total24b: optimal24b,
   });
   const oldTaxable = oldBreakdown.taxable_income;
-  const oldTaxResult = calculateOldRegimeTax(oldTaxable, fy);
+  const oldTaxResult = calculateOldRegimeTax(oldTaxable, fy, ageCategory);
   const oldTax = oldTaxResult.total_tax;
 
   // ── Compare ─────────────────────────────────────────────────────────
