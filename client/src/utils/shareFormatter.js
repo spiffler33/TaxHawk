@@ -5,7 +5,7 @@
  * or any personal data. It uses a curiosity-gap approach to drive clicks.
  */
 
-const DEFAULT_URL = 'https://taxhawk.in';
+const DEFAULT_URL = 'https://spiffler33.github.io/TaxHawk/';
 
 /**
  * Get the privacy-safe share text. No financials, no emojis.

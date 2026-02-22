@@ -14,13 +14,13 @@ import { getShareText, shareResults } from '../shareFormatter.js';
 
 describe('getShareText', () => {
   it('returns a string containing the app URL', () => {
-    const text = getShareText('https://taxhawk.in');
-    expect(text).toContain('https://taxhawk.in');
+    const text = getShareText('https://spiffler33.github.io/TaxHawk/');
+    expect(text).toContain('https://spiffler33.github.io/TaxHawk/');
   });
 
   it('uses default URL when none provided', () => {
     const text = getShareText();
-    expect(text).toContain('https://taxhawk.in');
+    expect(text).toContain('https://spiffler33.github.io/TaxHawk/');
   });
 
   it('never contains rupee symbol', () => {
@@ -29,7 +29,7 @@ describe('getShareText', () => {
   });
 
   it('never contains digits (no financial amounts leak)', () => {
-    const text = getShareText('https://taxhawk.in');
+    const text = getShareText('https://spiffler33.github.io/TaxHawk/');
     // Remove the URL portion before checking for digits
     const withoutUrl = text.replace(/https?:\/\/\S+/g, '');
     expect(withoutUrl).not.toMatch(/\d/);
@@ -71,10 +71,10 @@ describe('shareResults', () => {
       share: vi.fn().mockResolvedValue(undefined),
     };
 
-    const result = await shareResults('https://taxhawk.in');
+    const result = await shareResults('https://spiffler33.github.io/TaxHawk/');
     expect(result).toBe('shared');
     expect(globalThis.navigator.share).toHaveBeenCalledWith({
-      text: expect.stringContaining('taxhawk.in'),
+      text: expect.stringContaining('spiffler33.github.io/TaxHawk'),
     });
   });
 
