@@ -1,0 +1,42 @@
+/**
+ * Priya Sharma's investment holdings — golden demo data.
+ * Source: demo/priya_holdings.json
+ */
+export const PRIYA_HOLDINGS = {
+  holdings: [
+    {
+      security_name: 'HDFC Bank Ltd',
+      security_type: 'equity_share',
+      purchase_date: '2023-06-15',
+      purchase_price: 1620.00,
+      quantity: 50,
+      current_price: 1750.00,
+    },
+    {
+      security_name: 'Infosys Ltd',
+      security_type: 'equity_share',
+      purchase_date: '2024-01-10',
+      purchase_price: 1520.00,
+      quantity: 40,
+      current_price: 1780.00,
+    },
+    {
+      security_name: 'Axis Bluechip Fund - Growth',
+      security_type: 'equity_mf',
+      purchase_date: '2023-03-20',
+      purchase_price: 42.50,
+      quantity: 2000,
+      current_price: 52.75,
+    },
+    {
+      security_name: 'Parag Parikh Flexi Cap Fund',
+      security_type: 'equity_mf',
+      purchase_date: '2024-08-01',
+      purchase_price: 65.00,
+      quantity: 500,
+      current_price: 71.50,
+    },
+  ],
+  realized_stcg_this_fy: 0,
+  realized_ltcg_this_fy: 0,
+};

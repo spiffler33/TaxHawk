@@ -26,6 +26,9 @@ Thumbs.db
 frontend/node_modules/
 frontend/dist/
 frontend/.vite/
+client/node_modules/
+client/dist/
+client/.vite/
 
 # Environment
 .env
